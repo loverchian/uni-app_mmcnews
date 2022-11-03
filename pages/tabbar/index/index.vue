@@ -1,40 +1,80 @@
 <template>
-	<view>
-	   <navbar></navbar>
-	
+	<view class="home">
+		<navbar></navbar>
+		<tab :list="tabList" @tab="tab"></tab>
+		<list-scroll>
+			<list-card v-for="item in 5"></list-card>
+		</list-scroll>
+       <!-- <view class="home-list">
+			<scroll-view class="list-scroll" scroll-y>
+				<view>
+					
+				</view>
+				
+			</scroll-view>
+		</view> -->
 	</view>
-	
+
 </template>
 
 <script>
 	export default {
-		
-	
+
+
 		data() {
-			return{
-			message:'hello',
+			return {
+				tabList: [],
 			}
 		},
 		onLoad() {
-			uni.getSystemInfo({
-				success: function (res) {
-					console.log('成功',res)
-				}
-			});
-           
+			//console.log("res");
+			this.getLabel()
+
 		},
 		methods: {
-			 change(e){
-				 console.log('我被改变了'+e);
-			 }
-			
+
+			getLabel() {
+				
+				this.$api.get_label({
+					name: 'get_label'
+				}).then((res) => {
+					const {
+						data
+					} = res
+					this.tabList = data
+				})
+
+			},
+			tab(item, index) {
+				console.log(item, index);
+				//this.activeIndex = index
+
+			},
 		}
 	}
 </script>
 
 <style lang="scss">
-	.height{
-		border:1px red solid;
-		height: 500rpx;
+page {
+		height: 100%;
+		display: flex;
+	}
+
+	.home {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		overflow: hidden;
+
+		.home-list {
+			flex: 1;
+			overflow: hidden;
+			box-sizing: border-box;
+			.list-scroll{
+				height:100%;
+				display:flex;
+				flex-direction: column;
+			}
+		}
 	}
 </style>

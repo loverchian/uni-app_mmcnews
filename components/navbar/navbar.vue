@@ -15,7 +15,8 @@
 				<!-- 非搜素页面显示 -->
 				<view  v-if="!isSearch" class="navbar-search" @click="open">
 					<view class="navbar-search_icon">
-						<uni-icons type="search" size="16" color="#999"></uni-icons>
+						<!-- <uni-icons type="search" size="16" color="#999"></uni-icons> -->
+						<text class="iconfont icon-search"></text>
 					</view>
 					<view class="navbar-search_text">uniapp、vue</view>
 				</view>
@@ -94,7 +95,7 @@
 </script>
 
 <style lang="scss">
-	//@import '../../common/css/icons.css';
+	@import '../../common/css/icons.css';
 	.navbar {
 		.navbar-fixed {
 			position: fixed;
