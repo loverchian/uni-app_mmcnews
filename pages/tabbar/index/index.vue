@@ -1,20 +1,17 @@
 <template>
 	<view class="home">
-		<navbar></navbar>
-		<tab :list="tabList" @tab="tab"></tab>
-		<list-scroll>
-			<list-card v-for="item in 5"></list-card>
-		</list-scroll>
-       <!-- <view class="home-list">
-			<scroll-view class="list-scroll" scroll-y>
-				<view>
-					
-				</view>
-				
-			</scroll-view>
-		</view> -->
-	</view>
-
+	
+			<navbar></navbar>
+	
+			<tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab>
+	
+			<list-scroll>
+				<list-card v-for="item in 5"></list-card>
+			</list-scroll>
+	
+	
+	
+		</view>
 </template>
 
 <script>

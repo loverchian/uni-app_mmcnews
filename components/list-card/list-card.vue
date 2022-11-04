@@ -12,6 +12,7 @@
 			<view class="listcard-content__desc-label">
 				<view class="listcard-content__desc-label-item">前端</view>
 				</view>
+				
 				<view class="listcard-content__desc-browse">120人浏览</view>
 				
 			</view>	
