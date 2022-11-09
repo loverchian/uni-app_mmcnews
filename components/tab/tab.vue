@@ -2,8 +2,8 @@
 	<view class="tab">
 		<scroll-view class="tab-scroll" scroll-x>
 			<view class="tab-scroll_box">
-				<view v-for="(item,index) in list" key="index" class="tab-scroll_item"
-					:class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
+				
+				<view v-for="(item,index) in list" :key ="index" class="tab-scroll_item" :class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
 			</view>
 		</scroll-view>
 		<view class="tab-icons">
@@ -20,8 +20,17 @@
 				default () {
 					return []
 				}
+			},
+			tabIndex:{
+				type:Number,
+				default:0
 			}
 		},
+		watch:{
+			tabIndex(newVal){
+				this.activeIndex=newVal
+			}
+			 },
 		data() {
 			return {
 				activeIndex: 0
@@ -39,6 +48,7 @@
 
 		}
 	}
+
 </script>
 
 <style lang="scss">

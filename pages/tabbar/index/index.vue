@@ -2,15 +2,15 @@
 	<view class="home">
 	
 			<navbar></navbar>
-	
-			<tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab>
-	
-			<list-scroll>
-				<list-card v-for="item in 5"></list-card>
-			</list-scroll>
-	
-	
-	
+			<!-- <tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab> -->
+			<tab :list= "tabList"  @tab="tab"></tab>
+			<view class="home-list">
+				<list :tab="tabList" @change="change"></list>
+			</view>
+			
+			<!-- <view class="home-list">
+	        <list :tabs="tabList" :activeIndex="activeIndex" @change="change"></list>
+		</view> -->
 		</view>
 </template>
 
@@ -21,6 +21,9 @@
 		data() {
 			return {
 				tabList: [],
+				tabIndex:0,
+				activeIndex: 1
+				
 			}
 		},
 		onLoad() {
@@ -29,7 +32,10 @@
 
 		},
 		methods: {
-
+            change(current){
+				//this.tabIndex=current
+				console.log('dangqian');
+			},
 			getLabel() {
 				
 				this.$api.get_label({
@@ -43,8 +49,8 @@
 
 			},
 			tab(item, index) {
-				console.log(item, index);
-				//this.activeIndex = index
+				//console.log(item, index);
+				this.activeIndex = index
 
 			},
 		}
@@ -65,7 +71,7 @@ page {
 
 		.home-list {
 			flex: 1;
-			overflow: hidden;
+			//overflow: hidden;
 			box-sizing: border-box;
 			.list-scroll{
 				height:100%;
