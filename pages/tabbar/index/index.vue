@@ -2,15 +2,13 @@
 	<view class="home">
 	
 			<navbar></navbar>
-			<!-- <tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab> -->
-			<tab :list= "tabList"  @tab="tab"></tab>
+			<!-- 将tabList数值传送给list -->
+			<tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab>
 			<view class="home-list">
-				<list :tab="tabList" @change="change"></list>
-			</view>
+				<list :tab="tabList" :activeIndex="activeIndex" @change="change"></list>
 			
-			<!-- <view class="home-list">
-	        <list :tabs="tabList" :activeIndex="activeIndex" @change="change"></list>
-		</view> -->
+			</view>
+
 		</view>
 </template>
 
@@ -22,34 +20,32 @@
 			return {
 				tabList: [],
 				tabIndex:0,
-				activeIndex: 1
+				activeIndex: 0
 				
 			}
 		},
 		onLoad() {
 			//console.log("res");
-			this.getLabel()
+			this.getLabel()//页面一进入就调取getlabel云函数
 
 		},
 		methods: {
             change(current){
-				//this.tabIndex=current
-				console.log('dangqian');
+				this.tabIndex=current
+				//console.log('当前swiper的值',current);
 			},
 			getLabel() {
 				
 				this.$api.get_label({
-					name: 'get_label'
-				}).then((res) => {
-					const {
-						data
-					} = res
+					name: 'get_label' //云函数的名字
+				}).then((res) => { //将请求到的云函数数据，赋值到res
+					const {data} = res  //这句话是const{data}=res.data的简化写法
 					this.tabList = data
 				})
 
 			},
 			tab(item, index) {
-				//console.log(item, index);
+				console.log("Tab页面： ",index);
 				this.activeIndex = index
 
 			},

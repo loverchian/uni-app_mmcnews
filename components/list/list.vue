@@ -1,18 +1,12 @@
-<template>
-	<swiper class="home-swiper">
+<template><!-- Tab选项卡滑动页内容 -->
+	<swiper class="home-swiper" :current="activeIndex" @change="change">
 		<swiper-item v-for="(item,index) in tab" :key="index" class="swiper-item">
-			<list-item></list-item>
+			<list-item :list="list"></list-item>
 			</list-scroll>
 		</swiper-item>
 	
 	</swiper>
 	
-	<!-- <swiper class="home-swiper" @change="change">>
-		<swiper-item v-for="(item,index) in tab" :key="index" class="swiper-item">
-			<list-item>tab</list-item>
-		</swiper-item>
-
-	</swiper> -->
 </template>
 
 <script>
@@ -26,10 +20,10 @@
 					return []
 				}
 			},
-			// activeIndex: {
-			// 	type: Number,
-			// 	default: 0
-			// } 
+			activeIndex: {
+				type: Number,
+				default: 0
+			} 
 		},
 		name: "list",
 
@@ -39,16 +33,23 @@
 
 		data() {
 			return {
-
+				list:[]
 			};
+		},
+		created(){
+			this.getList()
 		},
 		methods: {
 			change(e) {
-				const {
-					current
-				} = e.detail
-				console.log(e);
+				const {current} = e.detail
 				this.$emit('change', current)
+			},
+			getList(){
+				this.$api.get_list().then(res=>{
+					console.log(res);
+					const{data}=res
+					this.list=data
+				})
 			}
 		},
 	}

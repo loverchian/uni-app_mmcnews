@@ -1,8 +1,7 @@
-<template>
-	<view class="tab">
+<template> <!-- Tab选项卡 -->
+	<view class="tab"> 
 		<scroll-view class="tab-scroll" scroll-x>
 			<view class="tab-scroll_box">
-				
 				<view v-for="(item,index) in list" :key ="index" class="tab-scroll_item" :class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
 			</view>
 		</scroll-view>
@@ -14,7 +13,7 @@
 
 <script>
 	export default {
-		props: {
+		props: { //父传子得到list1的值
 			list: {
 				type: Array,
 				default () {

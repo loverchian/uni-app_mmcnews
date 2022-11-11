@@ -1,5 +1,6 @@
 import $http from '../http.js'
 export const get_label = (data) => {
+	//console.log('在list.js中的输出data:',data)
 	return $http({
 		url: 'get_label',
 		data
@@ -7,12 +8,12 @@ export const get_label = (data) => {
 }
 
 
-// export const get_list = (data) => {
-// 	return $http({
-// 		url: 'get_list',
-// 		data
-// 	})
-// }
+export const get_list = (data) => {
+	return $http({
+		url: 'get_list',
+		data
+	})
+}
 
 // export const update_likes = (data) => {
 // 	return $http({

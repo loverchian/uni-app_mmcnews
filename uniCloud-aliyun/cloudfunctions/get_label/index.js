@@ -4,7 +4,7 @@ const db = uniCloud.database();
 //const $ = db.command.aggregate
 // 获取标签数据
 exports.main = async (event, context) => {
- let label =await db.collection('label').get()
+ let label =await db.collection('label').get() //连接数据库label并返回数据
 	// const {
 	// 	user_id,
 	// 	type
