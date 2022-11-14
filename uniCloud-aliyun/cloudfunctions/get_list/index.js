@@ -3,11 +3,21 @@
 const db = uniCloud.database();
 //const $ = db.command.aggregate
 exports.main = async (event, context) => {
+	const{name}=event
 	const list=await db.collection('article')
-	.field({
-		content:false //需要显示数据库哪个字段就是将哪个字段的值改成true
+	.aggregate()
+	.match({
+		classify:name
 	})
-	.get()
+	.project({
+		content:false
+	})
+	.end()
+	// const list=await db.collection('article')
+	// .field({
+	// 	content:false //需要显示数据库哪个字段就是将哪个字段的值改成true
+	// })
+	// .get()
 
 	// 接受分类，筛选当前分类
 	// const {

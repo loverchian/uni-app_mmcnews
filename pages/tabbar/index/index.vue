@@ -45,7 +45,7 @@
 
 			},
 			tab(item, index) {
-				console.log("Tab页面： ",index);
+				//console.log("Tab页面： ",index);
 				this.activeIndex = index
 
 			},
