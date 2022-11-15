@@ -3,15 +3,25 @@
 const db = uniCloud.database();
 //const $ = db.command.aggregate
 exports.main = async (event, context) => {
-	const{name}=event
+	const{
+		name,
+		page=1,
+		pageSize=10
+		}=event
+	let matchObj = {}
+	if (name !== "全部") {
+		matchObj = {
+			classify: name
+		}
+	}
 	const list=await db.collection('article')
 	.aggregate()
-	.match({
-		classify:name
-	})
+	.match(matchObj)
 	.project({
 		content:false
 	})
+    .skip(pageSize * (page - 1))
+    .limit(pageSize)
 	.end()
 	// const list=await db.collection('article')
 	// .field({
