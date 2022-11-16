@@ -8,6 +8,7 @@
 		<view class="listcard-content">
 			<view class="listcard-content__title">
 				<text>{{item.title}}</text>
+				<likes :item="item"></likes>
 			</view>	
 			<view class="listcard-content__desc">
 			<view class="listcard-content__desc-label">
@@ -25,6 +26,7 @@
 		<view class="listcard-content">
 			<view class="listcard-content__title">
 				<text>{{item.title}}</text>
+				<likes :item="item"></likes>
 			</view>	
 			<view class="listcard-image">
 				<view v-if="index < 3" v-for="(itemImg,index) in item.cover" :key="index" class="listcard-image__item">
@@ -53,6 +55,7 @@
 				</view>
 				<view class="listcard-content__title">
 					<text>{{item.title}}</text>
+					<likes :item="item"></likes>
 				</view>
 				<view class="listcard-content__desc">
 					<view class="listcard-content__desc-label">
@@ -144,6 +147,7 @@
 			justify-content: space-between;
 
 			.listcard-content__title {
+				position: relative;
 				padding-right: 30px;
 				font-size: 14px;
 				color: #333;
@@ -157,6 +161,18 @@
 					display: -webkit-box;
 					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
+				}
+				.icons{
+					position: absolute;
+					right:0;
+					top:0;
+					display:flex;
+					justify-content:center;
+					align-items:center;
+					width:20px;
+					heigh: 20px;
+					
+					
 				}
 			}
 

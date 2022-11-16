@@ -3,6 +3,10 @@
 export default function $http(options) {
 
 	const {url,data} = options	
+	/* const dataObj = {
+			user_id:store.state.userinfo._id,
+			...data
+		} */
     //console.log('在http.js中的输出:',options)
 	return new Promise((resolve, reject) => {
 		uniCloud.callFunction({
