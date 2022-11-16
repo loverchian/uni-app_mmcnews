@@ -36,23 +36,22 @@
 				},
 		methods: {
 			likeTap() {
-				console.log('收藏成功')
 				this.like = !this.like
 				this.setupdateLikes()
 				//this.updateLikes(); 
 			},
 			setupdateLikes() {
-				//uni.showLoading()
+				uni.showLoading()
 				this.$api.update_like({
 					//article_id: this.item._id
 					user_id:'635fe887b1fb0700017c0894',
 					article_id:this.item._id
 				}).then(res => {
-					// uni.hideLoading()
-					// uni.showToast({
-					// 	title: this.like ? "取消收藏" : "收藏成功",
-					// 	icon: "none"
-					// })
+					uni.hideLoading()
+					uni.showToast({
+						title: this.like ? "收藏成功" : "取消收藏",
+						icon: "none"
+					})
 					// uni.$emit('update_article', this.types)
 
 					console.log(res)
