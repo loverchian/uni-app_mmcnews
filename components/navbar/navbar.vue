@@ -6,7 +6,7 @@
 			<view :style="{height: statusBarHeight+'px'}"></view>
 			<!-- #endif -->
 			<!-- 导航栏 -->
-			<view class="navbar-content" :class="{search:isSearch}" :style="{height:navbarH+'px;',width:windowWidth+'px'}">
+			<view class="navbar-content" :class="{search:isSearch}" :style="{height:navbarH+'px;',width:windowWidth+'px'}" @click.stop="open">
 				
 				<view v-if="isSearch" class="navbar-content__search-icons" @click="back">
 					<uni-icons type="back" size="22" color="#fff" ></uni-icons>
@@ -15,8 +15,8 @@
 				<!-- 非搜素页面显示 -->
 				<view  v-if="!isSearch" class="navbar-search" @click="open">
 					<view class="navbar-search_icon">
-						<!-- <uni-icons type="search" size="16" color="#999"></uni-icons> -->
-						<text class="iconfont icon-search"></text>
+						<<uni-icons type="search" size="16" color="#999"></uni-icons> 
+						<!-- <text class="iconfont icon-search"></text> -->
 					</view>
 					<view class="navbar-search_text">uniapp、vue</view>
 				</view>
@@ -74,13 +74,14 @@
 		},
 		methods:{
 			open(){
+				if(this.isSearch) return
 				uni.navigateTo({
 					url:"/pages/home-search/home-search"
 				})
 			},
 			inputChange(e){
 				const {value} = e.detail
-				console.log(value)
+				
 				this.$emit('input',value)
 			},
 			back(){
@@ -129,7 +130,7 @@
 
 					.navbar-search_text {
 						width: 100%;
-						font-size: 12px;
+						font-size: 14px;
 						color: #999;
 					}
 				}
