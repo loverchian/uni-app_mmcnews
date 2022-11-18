@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view @click="open">
 		<view v-if="item.mode === 'base'" class="listcard">
 		<view  class="listcard-image">
 			<image :src="item.cover[0]" mode="aspectFill"></image>
@@ -97,9 +97,14 @@
 			};
 		},
 		methods: {
+			open(){
+				this.$emit('click', this.item)
+				console.log("打开详情页面");
+			}
 			// open() {
 			// 	const item = this.item
-			// 	this.$emit('click', item)
+				// this.$emit('click', item)
+				// console.log('打开详情页面')
 			// 	const params = {
 			// 		_id: item._id,
 			// 		title: item.title,
@@ -107,7 +112,7 @@
 			// 		browse_count: item.browse_count,
 			// 		thumbs_up_count: item.thumbs_up_count,
 			// 		author: item.author
-			// 	}
+				// }
 			// 	uni.navigateTo({
 			// 		url: '/pages/home-detail/home-detail?params=' + JSON.stringify(params)
 			// 	})

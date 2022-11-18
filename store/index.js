@@ -8,7 +8,7 @@ const store = new Vuex.Store({
 	// 数据源
 	state: {
 		// userinfo:uni.getStorageSync('USERINFO') || {},
-		// historyLists: uni.getStorageSync('__history') || []
+		historyLists: uni.getStorageSync('__history') || [],
 		historyLists:[]
 		
 	},
@@ -21,9 +21,9 @@ const store = new Vuex.Store({
 			state.historyLists = history
 		},
 
-		// CLEAR_HISTORY(state) {
-		// 	state.historyLists = []
-		// }
+		CLEAR_HISTORY(state) {
+			state.historyLists = []
+		}
 	},
 	actions: {
 		
@@ -34,16 +34,14 @@ const store = new Vuex.Store({
 		set_history({commit,state}, history) {
 			let list = state.historyLists
 			list.unshift(history)
-			// uni.setStorageSync('__history',list)
+			uni.setStorageSync('__history',list)
 			commit('SET_HISTORY_LISTS', list)
+		},
+		clear_history({commit}) {
+			// uni.setStorageSync('__history',[])
+			uni.removeStorageSync('__history')
+			commit('CLEAR_HISTORY')
 		}
-		// clear_history({
-		// 	commit
-		// }) {
-		// 	// uni.setStorageSync('__history',[])
-		// 	uni.removeStorageSync('__history')
-		// 	commit('CLEAR_HISTORY')
-		// }
 	} 
 })
 
