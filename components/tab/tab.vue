@@ -1,11 +1,13 @@
-<template> <!-- Tab选项卡 -->
-	<view class="tab"> 
+<template>
+	<!-- Tab选项卡 -->
+	<view class="tab">
 		<scroll-view class="tab-scroll" scroll-x>
 			<view class="tab-scroll_box">
-				<view v-for="(item,index) in list" :key ="index" class="tab-scroll_item" :class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
+				<view v-for="(item,index) in list" :key="index" class="tab-scroll_item"
+					:class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
 			</view>
 		</scroll-view>
-		<view class="tab-icons">
+		<view class="tab-icons" @click="open">
 			<uni-icons type="gear" size="26" color="#666"></uni-icons>
 		</view>
 	</view>
@@ -20,16 +22,16 @@
 					return []
 				}
 			},
-			tabIndex:{
-				type:Number,
-				default:0
+			tabIndex: {
+				type: Number,
+				default: 0
 			}
 		},
-		watch:{
-			tabIndex(newVal){
-				this.activeIndex=newVal
+		watch: {
+			tabIndex(newVal) {
+				this.activeIndex = newVal
 			}
-			 },
+		},
 		data() {
 			return {
 				activeIndex: 0
@@ -42,12 +44,16 @@
 
 				this.activeIndex = index
 
-				this.$emit('tab',item,index)
+				this.$emit('tab', item, index)
 			},
+			open() {
+				uni.navigateTo({
+					url: '/pages/home-label/home-label'
+				})
+			}
 
 		}
 	}
-
 </script>
 
 <style lang="scss">
