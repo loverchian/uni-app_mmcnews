@@ -44,12 +44,12 @@ export const get_detail = (data) => {
 	})
 }
 
-// export const update_comment = (data) => {
-// 	return $http({
-// 		url: 'update_comment',
-// 		data
-// 	})
-// }
+export const update_comment = (data) => {
+	return $http({
+		url: 'update_comment',
+		data
+	})
+}
 
 // export const get_comments = (data) => {
 // 	return $http({

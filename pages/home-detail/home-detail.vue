@@ -22,11 +22,11 @@
 		</view>
 		<view class="detail-content">
 			<view class="detail-html">
-				{{formData.content}}
+				<u-parse :content="formData.content" :noData="noData"> </u-parse>
 			</view>
 		</view>
 		<view class="detail-bottom">
-			<view class="detail-bottom__input">
+			<view class="detail-bottom__input" @click="openComment">
 				<text>谈谈你的看法</text>
 				<uni-icons type="compose" size="16" color="#F07373"></uni-icons>
 			</view>
@@ -43,15 +43,35 @@
 
 			</view>
 		</view>
+		<uni-popup ref="popup" type="bottom" :maskClick="false">
+			<view class="popup-wrap">
+				<view class="popup-header">
+					<text class="popup-header__item" @click="close">取消</text>
+					<text class="popup-header__item" @click="submit">发布</text>
+				</view>
+				<view class="popup-content">
+					<textarea class="popup-textarea" v-model="commentsValue" maxlength="200" fixed
+						placeholder="请输入评论内容"></textarea>
+					<view class="popup-count">{{commentsValue.length}}/200</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uParse from '@/components/gaoyia-parse/parse.vue'
 	export default {
+		components: {
+			uParse
+		},
 		data() {
 			return {
 				formData: {},
 				noData: '<p style="text-align:center;color:#666">详情加载中...</p>',
+				commentsValue: '',
+				commentsList: [],
+				replyFormData: {}
 			}
 		},
 		onLoad(query) {
@@ -60,6 +80,9 @@
 			this.getDetail();
 
 			//this.getComments();
+
+		},
+		onReady() {
 
 		},
 		methods: {
@@ -76,7 +99,151 @@
 
 				});
 			},
+			//请求评论内容
+			getComments() {
+				this.$api.get_comments({
+					article_id: this.formData._id
+				}).then(res => {
+					console.log(res)
+					const {
+						data
+					} = res
+					this.commentsList = data
+				}).catch(e => {
 
+				});
+			},
+			// 打开评论发布窗口
+			openComment() {
+				this.$refs.popup.open();
+			},
+			// 关闭弹框
+			close() {
+				this.$refs.popup.close();
+			},
+			submit() {
+				if (!this.commentsValue) {
+					uni.showToast({
+						title: '请输入评论内容',
+						icon: 'none'
+					})
+					return;
+				}
+				this.setUpdateComment({
+					content: this.commentsValue,
+					...this.replyFormData
+				})
+
+			},
+			setUpdateComment(content) {
+				uni.showLoading()
+				const formData = {
+					...content,
+					article_id: this.formData._id
+				}
+				this.$api.update_comment(formData).then(res => {
+					console.log(res)
+					uni.hideLoading()
+					uni.showToast({
+						title: '评论发布成功'
+					})
+					this.getComments()
+					this.close()
+					this.replyFormData = {}
+					this.commentsValue = ""
+				}).catch(e => {
+					uni.hideLoading()
+				});
+			},
+			//回复评论
+			reply(comments) {
+				this.replyFormData = {
+					comment_id: comments.comments.comment_id,
+					is_reply: comments.is_reply
+				}
+				if (comments.comments.reply_id) {
+					this.replyFormData.reply_id = comments.comments.reply_id
+				}
+				console.log(this.replyFormData)
+				// 打开当前输入框
+				this.$refs.popup.open();
+			},
+			// 关注
+			follow(authorid) {
+				this.setUpdateAuthor(authorid)
+			},
+			setUpdateAuthor(authorid) {
+				uni.showLoading()
+				this.$api.update_author({
+					author_id: authorid
+				}).then(res => {
+					uni.hideLoading();
+					console.log(res)
+					this.formData.is_author_like = !this.formData.is_author_like
+					uni.$emit('update_author')
+					uni.showToast({
+						title: this.formData.is_author_like ? "关注作者成功" : "取消关注作者",
+						icon: "none"
+					})
+				}).catch(e => {
+					console.log(e)
+					uni.hideLoading();
+				})
+			},
+			// 收藏
+			likeAction(articleid) {
+				// console.log(this.formData)
+				this.setUpdateList(articleid)
+			},
+			setUpdateList(article_id) {
+				uni.showLoading()
+				this.$api.update_likes({
+					article_id: article_id
+				}).then(res => {
+					console.log("收藏成功")
+
+					uni.$emit('update_article', 'follow')
+
+					uni.hideLoading()
+					this.formData.is_like = !this.formData.is_like
+					uni.showToast({
+						title: this.formData.is_like ? "收藏成功" : "取消收藏",
+						icon: "none"
+					})
+				}).catch(e => {
+					uni.hideLoading()
+				})
+			},
+			// 点赞
+			thumbsAction(articleid) {
+				this.setUpdateThumbs(articleid)
+
+			},
+
+			setUpdateThumbs(articleid) {
+				uni.showLoading()
+				this.$api.update_thumbs({
+					article_id: articleid
+				}).then(res => {
+					console.log(res)
+					this.formData.is_thumbs_up = !this.formData.is_thumbs_up
+					this.formData.thumbs_up_count = this.formData.thumbs_up_count + 1
+
+					uni.hideLoading()
+					uni.showToast({
+						title: res.msg,
+						icon: "none"
+					})
+				}).catch(e => {
+
+				});
+			},
+			//打开评论列表
+			open() {
+				uni.navigateTo({
+					url: "/pages/detail-comments/detail-comments?id=" + this.formData._id
+				})
+			}
 		}
 	}
 </script>
