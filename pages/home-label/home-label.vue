@@ -68,9 +68,7 @@
 						type: 'all'
 					}).then(res => {
 						console.log(res)
-						const {
-							data
-						} = res
+						const {data} = res
 	
 						this.labelList = data.filter(item => item.current)
 						this.list = data.filter(item => !item.current)

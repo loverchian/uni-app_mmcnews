@@ -33,8 +33,17 @@
             "path" : "pages/home-label/home-label",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
 				"navigationBarTextStyle": "标签管理",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "FE5786"
+            }
+            
+        }
+        ,{
+            "path" : "pages/home-detail/home-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             

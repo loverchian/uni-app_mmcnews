@@ -26,6 +26,12 @@
 		},
 		onLoad() {
 			//console.log("res");
+			uni.$on('labelChange',(res)=>{
+				this.tabList=[]
+				this.tabIndex=0
+				this.activeIndex=0
+				this.getLabel() 
+			})
 			this.getLabel() //页面一进入就调取getlabel云函数
 
 		},

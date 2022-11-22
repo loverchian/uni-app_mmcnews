@@ -98,26 +98,22 @@
 		},
 		methods: {
 			open(){
+				const item = this.item
 				this.$emit('click', this.item)
 				console.log("打开详情页面");
+				const params = {
+						_id: item._id,
+						title: item.title,
+						create_time: item.create_time,
+						browse_count: item.browse_count,
+						thumbs_up_count: item.thumbs_up_count,
+						author: item.author
+					}
+				uni.navigateTo({
+					url: '/pages/home-detail/home-detail?params=' + JSON.stringify(params)
+				})
 			}
-			// open() {
-			// 	const item = this.item
-				// this.$emit('click', item)
-				// console.log('打开详情页面')
-			// 	const params = {
-			// 		_id: item._id,
-			// 		title: item.title,
-			// 		create_time: item.create_time,
-			// 		browse_count: item.browse_count,
-			// 		thumbs_up_count: item.thumbs_up_count,
-			// 		author: item.author
-				// }
-			// 	uni.navigateTo({
-			// 		url: '/pages/home-detail/home-detail?params=' + JSON.stringify(params)
-			// 	})
-
-			// }
+	
 		}
 
 	}
