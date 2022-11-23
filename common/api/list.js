@@ -51,12 +51,12 @@ export const update_comment = (data) => {
 	})
 }
 
-// export const get_comments = (data) => {
-// 	return $http({
-// 		url: 'get_comments',
-// 		data
-// 	})
-// }
+export const get_comments = (data) => {
+	return $http({
+		url: 'get_comments',
+		data
+	})
+}
 
 // export const update_author = (data) => {
 // 	return $http({
