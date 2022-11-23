@@ -26,8 +26,8 @@
 			</view>
 			<view class="detail-comment">
 				<view class="comment-title">最新评论</view>
-				<view class="comment-content">
-					<comment-box></comment-box>
+				<view class="comment-content" v-for="item in commentsList" :key="item.comment_id">
+					<comment-box :comments="item" ></comment-box>
 			</view>
 		 </view>
 		</view>
@@ -83,7 +83,7 @@
 		onLoad(query) {
 			this.formData = JSON.parse(query.params)
 			this.getDetail();
-			//this.getComments();
+			this.getComments();
 		},
 		onReady() {
 		},
@@ -106,9 +106,7 @@
 					article_id: this.formData._id
 				}).then(res => {
 					console.log(res)
-					const {
-						data
-					} = res
+					const {data} = res
 					this.commentsList = data
 				}).catch(e => {
 				});
