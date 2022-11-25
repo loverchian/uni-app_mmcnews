@@ -1,121 +1,105 @@
 <template>
 	<view @click="open">
+		<!-- 基础卡片 -->
 		<view v-if="item.mode === 'base'" class="listcard">
-		<view  class="listcard-image">
-			<image :src="item.cover[0]" mode="aspectFill"></image>
-			
-		</view>
-		<view class="listcard-content">
-			<view class="listcard-content__title">
-				<text>{{item.title}}</text>
-				<likes :item="item"></likes>
-			</view>	
-			<view class="listcard-content__desc">
-			<view class="listcard-content__desc-label">
-				<view class="listcard-content__desc-label-item">{{item.classify}}</view>
-				</view>
-				
-				<view class="listcard-content__desc-browse">{{item.browse_count}} 人浏览</view>
-			
-			</view>	
-			</view>
-	</view>
-		<!-- <多图模式-->
-		<view v-if="item.mode === 'column'" class="listcard mode-column">
-		
-		<view class="listcard-content">
-			<view class="listcard-content__title">
-				<text>{{item.title}}</text>
-				<likes :item="item"></likes>
-			</view>	
 			<view class="listcard-image">
-				<view v-if="index < 3" v-for="(itemImg,index) in item.cover" :key="index" class="listcard-image__item">
-				<image :src="itemImg" mode="aspectFill"></image>
-			    </view>
+				<image :src="item.cover[0]" mode="aspectFill"></image>
 			</view>
-			<view class="listcard-content__desc">
-			<view class="listcard-content__desc-label">
-				<view class="listcard-content__desc-label-item">{{item.classify}}</view>
-				</view>
-				
-				<view class="listcard-content__desc-browse">{{item.browse_count}} 人浏览</view>
-				
-			</view>	
-			</view>
-	</view>
-
-		<!-- <大图模式-->
-		<view v-if="item.mode === 'image'" class="listcard mode-image">
-
 			<view class="listcard-content">
-				<view class="listcard-image">
-					<view  class="listcard-image">
-						<image :src="item.cover[0]" mode="aspectFill"></image>
-					</view>
-				</view>
 				<view class="listcard-content__title">
 					<text>{{item.title}}</text>
-					<likes :item="item"></likes>
+					<like :types="types" :item="item"></like>
 				</view>
 				<view class="listcard-content__desc">
 					<view class="listcard-content__desc-label">
 						<view class="listcard-content__desc-label-item">{{item.classify}}</view>
 					</view>
-
 					<view class="listcard-content__desc-browse">{{item.browse_count}} 人浏览</view>
+				</view>
+			</view>
+		</view>
 
+		<!-- 多图卡片 -->
+		<view v-if="item.mode === 'column'" class="listcard mode-column">
+			<view class="listcard-content">
+				<view class="listcard-content__title">
+					<text>{{item.title}}</text>
+					<like :types="types" :item="item"></like>
+				</view>
+				<view class="listcard-image">
+					<view v-if="index < 3" v-for="(itemImg,index) in item.cover" :key="index" class="listcard-image__item">
+						<image :src="itemImg" mode="aspectFill"></image>
+					</view>
+				</view>
+				<view class="listcard-content__desc">
+					<view class="listcard-content__desc-label">
+						<view class="listcard-content__desc-label-item">{{item.classify}}</view>
+					</view>
+					<view class="listcard-content__desc-browse">{{item.browse_count}}人浏览</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 大图模式 -->
+		<view v-if="item.mode === 'image'" class="listcard mode-image">
+			<view class="listcard-image">
+				<image :src="item.cover[0]" mode="aspectFill"></image>
+			</view>
+			<view class="listcard-content">
+				<view class="listcard-content__title">
+					<text>{{item.title}}</text>
+					<like :types="types" :item="item"></like>
+				</view>
+				<view class="listcard-content__desc">
+					<view class="listcard-content__desc-label">
+						<view class="listcard-content__desc-label-item">{{item.classify}}</view>
+					</view>
+					<view class="listcard-content__desc-browse">{{item.browse_count}}人浏览</view>
 				</view>
 			</view>
 		</view>
 	</view>
-
 </template>
 
 <script>
 	export default {
 		props: {
-			item:{
-				type:Object,
-				default(){
-					return{}
+
+			item: {
+				type: Object,
+				default () {
+					return {}
 				}
+			},
+			types:{
+				type:String,
+				default:''
 			}
-			// item: {
-			// 	type: Object,
-			// 	default () {
-			// 		return {}
-			// 	}
-			// },
-			// types: {
-			// 	type: String,
-			// 	default: ''
-			// }
 		},
 		data() {
 			return {
 
 			};
 		},
-		methods: {
+		methods:{
 			open(){
-				const item = this.item
-				this.$emit('click', this.item)
-				console.log("打开详情页面");
+				const item  = this.item
+				this.$emit('click',item)				
 				const params = {
-						_id: item._id,
-						title: item.title,
-						create_time: item.create_time,
-						browse_count: item.browse_count,
-						thumbs_up_count: item.thumbs_up_count,
-						author: item.author
-					}
+					_id : item._id,
+					title:item.title,
+					create_time:item.create_time,
+					browse_count: item.browse_count,
+					thumbs_up_count: item.thumbs_up_count,
+					author:item.author
+				}
 				uni.navigateTo({
-					url: '/pages/home-detail/home-detail?params=' + JSON.stringify(params)
+					url:'/pages/home-detail/home-detail?params='+JSON.stringify(params)
 				})
+				
 			}
-	
 		}
-
+		
 	}
 </script>
 
@@ -148,7 +132,6 @@
 			justify-content: space-between;
 
 			.listcard-content__title {
-				position: relative;
 				padding-right: 30px;
 				font-size: 14px;
 				color: #333;
@@ -163,18 +146,6 @@
 					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
 				}
-				.icons{
-					position: absolute;
-					right:0;
-					top:0;
-					display:flex;
-					justify-content:center;
-					align-items:center;
-					width:20px;
-					heigh: 20px;
-					
-					
-				}
 			}
 
 			.listcard-content__desc {
@@ -184,16 +155,13 @@
 
 				.listcard-content__desc-label {
 					display: flex;
-					justify-content: space-between;
 
 					.listcard-content__desc-label-item {
-
 						padding: 0 5px;
 						margin-right: 5px;
 						border-radius: 15px;
 						border: 1px $mk-base-color solid;
 						color: $mk-base-color;
-
 					}
 				}
 

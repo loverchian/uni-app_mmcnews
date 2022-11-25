@@ -3,39 +3,45 @@
 		{
 			"path": "pages/tabbar/index/index",
 			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "uni-app",
+				"navigationStyle":"custom",
+				"navigationBarTextStyle":"white"
 			}
-		}, {
-			"path": "pages/tabbar/follow/follow",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/tabbar/my/my",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/home-search/home-search",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-			}
-
 		}
 	    ,{
+            "path" : "pages/tabbar/follow/follow",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关注",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tabbar/my/my",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home-search/home-search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
             "path" : "pages/home-label/home-label",
             "style" :                                                                                    
             {
-				"navigationBarTextStyle": "标签管理",
-				"enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "FE5786"
+                "navigationBarTitleText": "标签管理",
+                "enablePullDownRefresh": false
             }
             
         }
@@ -43,7 +49,34 @@
             "path" : "pages/home-detail/home-detail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "页面详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/detail-comments/detail-comments",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评论列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-article/my-article",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的文章",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/feedback/feedback",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "意见反馈",
                 "enablePullDownRefresh": false
             }
             
@@ -55,29 +88,28 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar": {
-		"color": "#666",
-		"selectedColor": "#f07373",
-		"backgroundColor": "#fff",
-		"list": [{
-				"pagePath": "pages/tabbar/index/index",
-				"iconPath": "static/home.png",
-				"selectedIconPath": "static/home-active.png",
-				"text": "首页"
-			},
-			{
-				"pagePath": "pages/tabbar/follow/follow",
-				"iconPath": "static/follow.png",
-				"selectedIconPath": "static/follow-active.png",
-				"text": "关注"
-			},
-			{
-				"pagePath": "pages/tabbar/my/my",
-				"iconPath": "static/my.png",
-				"selectedIconPath": "static/my-active.png",
-				"text": "我的"
-			}
+	"tabBar":{
+		"color":"#666",
+		"selectedColor":"#f07373",
+		"backgroundColor":"#fff",
+		"list":[{
+			"pagePath":"pages/tabbar/index/index",
+			"iconPath":"static/home.png",
+			"selectedIconPath":"static/home-active.png",
+			"text":"首页"
+		},
+		{
+			"pagePath":"pages/tabbar/follow/follow",
+			"iconPath":"static/follow.png",
+			"selectedIconPath":"static/follow-active.png",
+			"text":"关注"
+		},
+		{
+			"pagePath":"pages/tabbar/my/my",
+			"iconPath":"static/my.png",
+			"selectedIconPath":"static/my-active.png",
+			"text":"我的"
+		}
 		]
 	}
-
 }

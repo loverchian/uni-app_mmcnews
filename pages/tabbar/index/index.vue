@@ -2,66 +2,68 @@
 	<view class="home">
 
 		<navbar></navbar>
-		<!-- 将tabList数值传送给list -->
-		<tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab>
-		<view class="home-list">
-			<list :tab="tabList" :activeIndex="activeIndex" @change="change"></list>
 
+		<tab :list="tabList" :tabIndex="tabIndex" @tab="tab"></tab>
+
+		<view class="home-list">
+			<list :tabs="tabList" :activeIndex="activeIndex" @change="change"></list>
 		</view>
+
+
 
 	</view>
 </template>
-
 <script>
+	import {
+		mapState
+	} from 'vuex'
 	export default {
-
-
 		data() {
 			return {
 				tabList: [],
 				tabIndex: 0,
 				activeIndex: 0
-
+			}
+		},
+		computed: {
+			...mapState(['userinfo'])
+			
+		},
+		watch:{
+			userinfo(newVals) {
+				this.getLabel()
 			}
 		},
 		onLoad() {
-			//console.log("res");
-			uni.$on('labelChange',(res)=>{
-				this.tabList=[]
-				this.tabIndex=0
-				this.activeIndex=0
-				this.getLabel() 
+			uni.$on('labelChange', (res) => {
+				this.tabList = []
+				this.tabIndex = 0
+				this.activeIndex = 0
+				this.getLabel()
 			})
-			this.getLabel() //页面一进入就调取getlabel云函数
-
 		},
 		methods: {
-			change(current) {
-				this.tabIndex = current
-				this.activeIndex=current
-				//console.log('当前swiper的值',current);
-			},
 			getLabel() {
-
-				this.$api.get_label({
-					name: 'get_label' //云函数的名字
-				}).then((res) => { //将请求到的云函数数据，赋值到res
+				this.$api.get_label().then((res) => {
 					const {
 						data
-					} = res //这句话是const{data}=res.data的简化写法
-					console.log('list.vue：标签', data);
+					} = res;
 					data.unshift({
 						name: '全部'
 					})
-					this.tabList = data
-				})
-
+					this.tabList = res.data
+				});
 			},
+
 			tab(item, index) {
-				//console.log("Tab页面： ",index);
 				this.activeIndex = index
 
 			},
+			change(current) {
+				console.log(current)
+				this.tabIndex = current
+				this.activeIndex = current
+			}
 		}
 	}
 </script>
@@ -80,14 +82,7 @@
 
 		.home-list {
 			flex: 1;
-			//overflow: hidden;
 			box-sizing: border-box;
-
-			.list-scroll {
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-			}
 		}
 	}
 </style>

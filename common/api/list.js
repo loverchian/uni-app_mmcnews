@@ -1,12 +1,11 @@
 import $http from '../http.js'
+
 export const get_label = (data) => {
-	//console.log('在list.js中的输出data:',data)
 	return $http({
 		url: 'get_label',
 		data
 	})
 }
-
 
 export const get_list = (data) => {
 	return $http({
@@ -15,7 +14,7 @@ export const get_list = (data) => {
 	})
 }
 
-export const update_like = (data) => {
+export const update_likes = (data) => {
 	return $http({
 		url: 'update_like',
 		data
@@ -58,52 +57,52 @@ export const get_comments = (data) => {
 	})
 }
 
-// export const update_author = (data) => {
-// 	return $http({
-// 		url:'update_author',
-// 		data
-// 	})
-// }
+export const update_author = (data) => {
+	return $http({
+		url:'update_author',
+		data
+	})
+}
 
-// export const update_thumbs = (data) => {
-// 	return $http({
-// 		url:'update_thumbs',
-// 		data
-// 	})
-// }
+export const update_thumbs = (data) => {
+	return $http({
+		url:'update_thumbs',
+		data
+	})
+}
 
-// export const get_follow = (data) => {
-// 	return $http({
-// 		url:'get_follow',
-// 		data
-// 	})
-// }
+export const get_follow = (data) => {
+	return $http({
+		url:'get_follow',
+		data
+	})
+}
 
-// export const get_author = (data) => {
-// 	return $http({
-// 		url:'get_author',
-// 		data
-// 	})
-// }
+export const get_author = (data) => {
+	return $http({
+		url:'get_author',
+		data
+	})
+}
 
-// export const get_user = (data) => {
-// 	return $http({
-// 		url:'get_user',
-// 		data
-// 	})
-// }
+export const get_user = (data) => {
+	return $http({
+		url:'get_user',
+		data
+	})
+}
 
 
-// export const get_my_article = (data) => {
-// 	return $http({
-// 		url:'get_my_article',
-// 		data
-// 	})
-// }
+export const get_my_article = (data) => {
+	return $http({
+		url:'get_my_article',
+		data
+	})
+}
 
-// export const update_feedback = (data) => {
-// 	return $http({
-// 		url:'update_feedback',
-// 		data
-// 	})
-// }
+export const update_feedback = (data) => {
+	return $http({
+		url:'update_feedback',
+		data
+	})
+}

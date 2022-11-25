@@ -4,20 +4,42 @@
 			<view class="comments-header__logo">
 				<image :src="comments.author.avatar" mode="aspectFill"></image>
 			</view>
+
 			<view class="comments-header__info">
-				<view class="title">{{comments.author.author_name}}</view>
-				<view>{{comments.create_time}}</view>
+
+				<view v-if="!comments.is_reply" class="title">{{comments.author.author_name}}</view>
+				<view v-else class="title">{{comments.author.author_name}}<text class="reply-text">回复</text>{{comments.to}}</view>
+				<view>{{comments.create_time | formatTime}}</view>
 			</view>
 		</view>
+
 		<view class="comments-content">
-			<view>{{comments.comment_content}}<</view>
+			<view>{{comments.comment_content}}</view>
+
+			<view class="comments-info">
+				<view class="comments-button" @click="commentReply({comments,is_reply:reply})">回复</view>
+			</view>
+
+			<view class="comments-reply" v-for="(item, index) in comments.replys" :key="item.comment_id">
+				<comment-box :reply="true" :comments="item" @reply="commentReply"></comment-box>
+			</view>
+
 		</view>
+
 	</view>
 </template>
 
 <script>
+	import commentBox from '@/components/comment-box/comment-box.vue'
+	import {
+		parseTime
+	} from '@/utils/index.js'
+
 	export default {
-		//name: "comment-box",
+		name: "comment-box",
+		components: {
+			commentBox
+		},
 		props: {
 			comments: {
 				type: Object,
@@ -25,12 +47,32 @@
 					return {}
 				}
 			},
+			reply: {
+				type: Boolean,
+				default: false
+			}
 		},
 		data() {
 			return {
 
 			};
+		},
+		filters: {
+			formatTime(time) {
+				return parseTime(time)
+			}
+		},
+		methods: {
+			commentReply(comments) {
+				// 为了区分主回复 还是子回复
+				if (comments.is_reply) {
+					comments.comments.reply_id = comments.comments.comment_id
+					comments.comments.comment_id = this.comments.comment_id
+				}
+				this.$emit('reply', comments)
+			}
 		}
+
 	}
 </script>
 

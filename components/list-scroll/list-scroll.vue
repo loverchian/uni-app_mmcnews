@@ -2,7 +2,6 @@
 	<view class="scroll" >
 		<scroll-view class="list-scroll" scroll-y @scrolltolower="loadmore" >
 			<view>
-				
 				<slot></slot>
 			</view>
 		</scroll-view>
@@ -35,7 +34,6 @@
 			height: 100%;
 			display: flex;
 			flex-direction: column;
-			
 		}
 	}
 </style>

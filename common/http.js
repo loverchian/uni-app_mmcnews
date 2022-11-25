@@ -1,13 +1,14 @@
-//import store  from '../store/index.js'
-
+import store  from '../store/index.js'
 export default function $http(options) {
 
-	const {url,data} = options	
+	const {
+		url,
+		data
+	} = options	
 	const dataObj = {
-			user_id:'635fe887b1fb0700017c0894',
-			...data
-		}
-    //console.log('在http.js中的输出:',options)
+		user_id:store.state.userinfo._id,
+		...data
+	}
 	return new Promise((resolve, reject) => {
 		uniCloud.callFunction({
 			name:url,

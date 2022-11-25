@@ -1,58 +1,57 @@
 <template>
-	<!-- Tab选项卡 -->
 	<view class="tab">
 		<scroll-view class="tab-scroll" scroll-x>
 			<view class="tab-scroll_box">
-				<view v-for="(item,index) in list" :key="index" class="tab-scroll_item"
-					:class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
+				<view v-for="(item,index) in list" class="tab-scroll_item" :class="{active:activeIndex==index}" @click="clickTab(item,index)">{{item.name}}</view>
 			</view>
 		</scroll-view>
+
 		<view class="tab-icons" @click="open">
 			<uni-icons type="gear" size="26" color="#666"></uni-icons>
 		</view>
+
 	</view>
 </template>
 
 <script>
 	export default {
-		props: { //父传子得到list1的值
+		props: {
 			list: {
 				type: Array,
-				default () {
-					return []
-				}
+				default:[]
 			},
-			tabIndex: {
-				type: Number,
-				default: 0
-			}
-		},
-		watch: {
-			tabIndex(newVal) {
-				this.activeIndex = newVal
+			tabIndex:{
+				type:Number,
+				default:0
 			}
 		},
 		data() {
 			return {
-				activeIndex: 0
-
+				activeIndex:0
+			};
+		},
+		created() {
+			console.log(this.list)
+		},
+		// 可以监听 data props 的值的变化
+		watch:{
+			tabIndex(newVal) {
+				this.activeIndex = newVal
 			}
 		},
-
-		methods: {
-			clickTab(item, index) {
-
+		methods:{
+			clickTab(item,index) {
 				this.activeIndex = index
-
-				this.$emit('tab', item, index)
+				this.$emit('tab',item,index)
 			},
-			open() {
+			open(){
 				uni.navigateTo({
-					url: '/pages/home-label/home-label'
+					url:'/pages/home-label/home-label'
 				})
 			}
-
+			
 		}
+		
 	}
 </script>
 
@@ -67,23 +66,19 @@
 		.tab-scroll {
 			flex: 1;
 			overflow: hidden;
-			box-sizing: border-box;
 
-			//border:1px red solid
 			.tab-scroll_box {
 				display: flex;
 				height: 45px;
 				align-items: center;
 				flex-wrap: nowrap; //不换行
 				box-sizing: border-box;
-
 				.tab-scroll_item {
 					flex-shrink: 0;
 					padding: 0 10px;
 					color: #333;
 					font-size: 14px;
 				}
-
 				.active {
 					color: #f07373;
 				}
